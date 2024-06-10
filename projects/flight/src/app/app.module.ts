@@ -24,7 +24,6 @@ import { SharedModule } from './shared/shared.module';
     UiCoreModule,
     SharedModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
