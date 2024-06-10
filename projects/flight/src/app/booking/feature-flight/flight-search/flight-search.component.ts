@@ -2,8 +2,8 @@ import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Flight, FlightFilter } from '../../logic-flight';
 import { FlightCardComponent } from '../../ui-flight/flight-card/flight-card.component';
-import { UiFlightModule } from '../../ui-flight/ui-flight.module';
 import { TicketsFacade } from './../../logic-flight/+state/facade';
+import { FlightFilterComponent } from '../../ui-flight/flight-filter/flight-filter.component';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { TicketsFacade } from './../../logic-flight/+state/facade';
   standalone: true,
   imports: [
     NgIf, NgFor, JsonPipe, AsyncPipe,
-    UiFlightModule,
+    FlightFilterComponent,
     FlightCardComponent
   ]
 })
