@@ -1,10 +1,14 @@
 import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Injector, inject, runInInjectionContext } from '@angular/core';
 import { Flight, FlightFilter } from '../../logic-flight';
 import { FlightCardComponent } from '../../ui-flight/flight-card/flight-card.component';
 import { TicketsFacade } from './../../logic-flight/+state/facade';
 import { FlightFilterComponent } from '../../ui-flight/flight-filter/flight-filter.component';
 
+
+export function injectTicketFacade() {
+  return inject(TicketsFacade);
+}
 
 @Component({
   selector: 'app-flight-search',
@@ -17,6 +21,9 @@ import { FlightFilterComponent } from '../../ui-flight/flight-filter/flight-filt
   ]
 })
 export class FlightSearchComponent {
+  private injector = inject(Injector);
+  private ticketsFacade = injectTicketFacade();
+
   protected filter = {
     from: 'London',
     to: 'San Francisco',
@@ -28,9 +35,14 @@ export class FlightSearchComponent {
   };
   protected flights$ = this.ticketsFacade.flights$;
 
-  constructor(private ticketsFacade: TicketsFacade) {}
-
   protected search(filter: FlightFilter): void {
+    this.injector.get(TicketsFacade);
+
+    const facade = runInInjectionContext(
+      this.injector,
+      () => injectTicketFacade()
+    );
+
     this.filter = filter;
 
     if (!this.filter.from || !this.filter.to) {
