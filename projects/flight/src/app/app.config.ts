@@ -7,6 +7,7 @@ import { SharedModule } from "./shared/shared.module";
 import { UiCoreModule } from "./shared/ui-core/ui-core.module";
 import { PreloadAllModules, provideRouter, withPreloading } from "@angular/router";
 import { APP_ROUTES } from "./app.routes";
+import { provideConfigState } from "./shared/util-config";
 
 
 export const appConfig: ApplicationConfig = {
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptorsFromDi()
     ),
+    provideConfigState('./assets/config.state.json'),
     importProvidersFrom(
       StoreModule.forRoot(),
       EffectsModule.forRoot(),
