@@ -12,6 +12,7 @@ const routes: Routes = [
     path: 'home',
     loadComponent: () => import('./shared/feature-core')
   },
+  // ...BOOKING_ROUTES,
   {
     path: 'booking',
     loadChildren: () => import('./booking/booking.routes')

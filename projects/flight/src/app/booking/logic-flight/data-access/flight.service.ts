@@ -4,9 +4,9 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Flight } from '../model/flight';
 
 
-@Injectable({
+@Injectable(/* {
   providedIn: 'root'
-})
+} */)
 export class FlightService {
   flights: Flight[] = [];
   private flightsCountState = new BehaviorSubject<number>(0);
