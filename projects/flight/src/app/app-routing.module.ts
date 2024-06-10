@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './shared/feature-core';
 
 
 const routes: Routes = [
@@ -10,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () => import('./shared/feature-core')
+    component: HomeComponent
   },
   // ...BOOKING_ROUTES,
   {
