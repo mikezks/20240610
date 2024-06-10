@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, effect, inject, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { routerFeature } from '../../../shared/logic-router-state';
-import { initialFlight } from '../../logic-flight';
+import { Flight, initialFlight } from '../../logic-flight';
 
 
 @Component({
@@ -11,10 +11,10 @@ import { initialFlight } from '../../logic-flight';
     standalone: true,
     imports: [ReactiveFormsModule]
 })
-export class FlightEditComponent implements OnChanges {
+export class FlightEditComponent {
   private formBuilder = inject(FormBuilder);
 
-  @Input() flight = initialFlight;
+  flight = input.required<Flight>()
 
   protected editForm = this.formBuilder.nonNullable.group({
     id: [0],
@@ -31,18 +31,11 @@ export class FlightEditComponent implements OnChanges {
       params => console.log(params)
     );
 
-    // this.editForm.reset();
-    /* this.editForm.patchValue({
-      from: ''
-    });
-    this.editForm.getRawValue() */
+    effect(
+      () => this.editForm.patchValue(this.flight())
+    );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['flight'].previousValue !== changes['flight'].currentValue) {
-      this.editForm.patchValue(this.flight);
-    }
-  }
 
   protected save(): void {
     console.log(this.editForm.value);
