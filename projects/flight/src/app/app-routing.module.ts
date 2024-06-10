@@ -13,7 +13,6 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
-  // ...BOOKING_ROUTES,
   {
     path: 'booking',
     loadChildren: () => import('./booking/booking.routes')
