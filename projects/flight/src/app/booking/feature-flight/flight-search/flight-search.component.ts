@@ -48,6 +48,23 @@ export class FlightSearchComponent {
     });
 
     console.log(this.flightRoute[SIGNAL]);
+
+    console.log(this.filter().from);
+    this.filter.update(filter => ({
+      ...filter,
+      from: 'Barcelona'
+    }));
+    console.log(this.filter().from);
+    this.filter.update(filter => ({
+      ...filter,
+      from: 'Rome'
+    }));
+    console.log(this.filter().from);
+    this.filter.update(filter => ({
+      ...filter,
+      from: 'Stuttgart'
+    }));
+    console.log(this.filter().from);
   }
 
   protected search(filter: FlightFilter): void {
