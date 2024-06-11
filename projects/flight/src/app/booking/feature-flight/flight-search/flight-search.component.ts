@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Flight, injectTicketsFacade } from '../../logic-flight';
 import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
@@ -35,7 +35,13 @@ export class FlightSearchComponent {
 
   constructor() {
     effect(() => console.log(this.flightRoute()));
-    effect(() => this.search());
+    /* effect(() => this.search(), {
+      allowSignalWrites: true
+    }); */
+    effect(() => {
+      this.filter();
+      untracked(() => this.search());
+    });
   }
 
   protected search(): void {
