@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Flight, FlightFilter, injectTicketsFacade } from '../../logic-flight';
+import { Flight, injectTicketsFacade } from '../../logic-flight';
 import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
-import { SIGNAL } from '@angular/core/primitives/signals';
 
 
 @Component({
@@ -35,41 +34,11 @@ export class FlightSearchComponent {
   );
 
   constructor() {
-    /* let activeConsumer = effectConsumerNode;
-    // Signal Getter is called, because effect reads a Signal
-    function getSignalValue() {
-      // who is the current activeConsumer? -> effectConsumerNode
-      // signalProducerNode <-> effectConsumerNode
-    }
-    this.filter.set({}) // -> Signal informs all ConsumerNodes */
-
-    effect(() => {
-      console.log(this.flightRoute());
-    });
-
-    console.log(this.flightRoute[SIGNAL]);
-
-    console.log(this.filter().from);
-    this.filter.update(filter => ({
-      ...filter,
-      from: 'Barcelona'
-    }));
-    console.log(this.filter().from);
-    this.filter.update(filter => ({
-      ...filter,
-      from: 'Rome'
-    }));
-    console.log(this.filter().from);
-    this.filter.update(filter => ({
-      ...filter,
-      from: 'Stuttgart'
-    }));
-    console.log(this.filter().from);
+    effect(() => console.log(this.flightRoute()));
+    effect(() => this.search());
   }
 
-  protected search(filter: FlightFilter): void {
-    this.filter.set(filter);
-
+  protected search(): void {
     if (!this.filter().from || !this.filter().to) {
       return;
     }
